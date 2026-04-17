@@ -174,6 +174,10 @@ p {
   z-index: 3;
   margin: -2rem -2rem 2rem;
   padding: 2rem 2rem 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 0.85rem;
+  align-items: end;
   background: linear-gradient(
     180deg,
     rgba(12, 19, 29, 0.92) 0%,
@@ -184,7 +188,8 @@ p {
 
 .search {
   width: 100%;
-  padding: 0 7.25rem 0.8rem 0;
+  min-width: 0;
+  padding: 0 0 0.8rem 0;
   background: none;
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.35);
@@ -203,28 +208,34 @@ p {
 
 .submit,
 .location {
-  position: absolute;
-  top: 2rem;
   border: none;
   outline: none;
   color: #fff;
   cursor: pointer;
   font-size: 1.1rem;
   transition: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
 }
 
 .submit {
-  right: 4.6rem;
-  padding: 1rem 1.1rem;
   border-radius: 0.9rem 0 0 0.9rem;
   background: #fa6d1b;
 }
 
 .location {
-  right: 2rem;
-  padding: 1rem 1.1rem;
   border-radius: 0 0.9rem 0.9rem 0;
   background: rgba(255, 255, 255, 0.14);
+}
+
+.button-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: currentColor;
+  display: block;
 }
 
 .submit:hover,
@@ -351,19 +362,15 @@ p {
 }
 
 .hourly-forecast {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .daily-forecast {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 0.85rem;
-}
-
-.hour-card {
-  padding: 1rem;
 }
 
 .day-card {
@@ -402,33 +409,58 @@ p {
   font-size: 0.9rem;
 }
 
-.hour-card-top,
-.hour-card-details,
-.hour-temp-row {
+.hour-row,
+.day-card-top {
   display: flex;
   justify-content: space-between;
+  gap: 1rem;
+}
+
+.hour-row {
+  align-items: center;
+  padding: 0.95rem 1rem;
+  border-radius: 1rem;
+  background: rgba(9, 16, 26, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hour-main,
+.hour-metrics {
+  display: flex;
   gap: 0.85rem;
   align-items: center;
 }
 
-.hour-card-top {
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 0.75rem;
-  font-size: 0.92rem;
+.hour-main {
+  min-width: 0;
 }
 
-.hour-temp-row {
-  margin-bottom: 0.85rem;
+.hour-time {
+  min-width: 4.7rem;
+  font-size: 0.98rem;
 }
 
-.hour-temp-row strong {
-  font-size: 1.35rem;
+.hour-condition {
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.3;
 }
 
-.hour-card-details {
-  color: rgba(255, 255, 255, 0.68);
+.hour-metrics {
   flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.hour-metric {
+  color: rgba(255, 255, 255, 0.68);
   font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.hour-metric strong {
+  color: #fff;
+  font-size: 1rem;
 }
 
 @media screen and (max-width: 1180px) {
@@ -447,19 +479,6 @@ p {
     top: -1.5rem;
     margin: -1.5rem -1.5rem 1.75rem;
     padding: 1.5rem 1.5rem 1rem;
-  }
-
-  .submit,
-  .location {
-    top: 1.5rem;
-  }
-
-  .submit {
-    right: 4.1rem;
-  }
-
-  .location {
-    right: 1.5rem;
   }
 }
 
@@ -493,19 +512,6 @@ p {
     padding: 1.2rem 1.2rem 1rem;
   }
 
-  .submit,
-  .location {
-    top: 1.2rem;
-  }
-
-  .submit {
-    right: 3.8rem;
-  }
-
-  .location {
-    right: 1.2rem;
-  }
-
   .hero-meta,
   .stats-grid,
   .astronomy-grid,
@@ -513,7 +519,6 @@ p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .hourly-forecast,
   .daily-forecast {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -522,6 +527,11 @@ p {
 @media screen and (max-width: 640px) {
   html {
     font-size: 14px;
+  }
+
+  .panel form {
+    gap: 0.6rem;
+    grid-template-columns: minmax(0, 1fr) auto auto;
   }
 
   .headline {
@@ -540,7 +550,6 @@ p {
     grid-template-columns: 1fr;
   }
 
-  .hourly-forecast,
   .daily-forecast {
     grid-template-columns: 1fr;
   }
@@ -549,11 +558,16 @@ p {
     max-width: none;
   }
 
-  .hour-card-top,
-  .hour-card-details,
+  .hour-row,
+  .hour-main,
+  .hour-metrics,
   .day-card-top {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .hour-time {
+    min-width: 0;
   }
 
   .day-card-grid {

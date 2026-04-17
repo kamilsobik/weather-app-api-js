@@ -305,21 +305,21 @@ function renderHourlyForecast(forecastDays, locationLocalTime) {
   hourlyForecast.innerHTML = displayedHours
     .map(
       (hour) => `
-        <article class="hour-card">
-          <div class="hour-card-top">
-            <span>${formatHourLabel(hour)}</span>
-            <span>${hour.condition.text}</span>
-          </div>
-          <div class="hour-temp-row">
+        <article class="hour-row">
+          <div class="hour-main">
+            <strong class="hour-time">${formatHourLabel(hour)}</strong>
             <img src="./icons/${hour.condition.icon.substr(
               "//cdn.weatherapi.com/weather/64x64/".length
             )}" alt="${hour.condition.text}" width="38" height="38" />
-            <strong>${formatTemperature(hour.temp_c)}</strong>
+            <span class="hour-condition">${hour.condition.text}</span>
           </div>
-          <div class="hour-card-details">
-            <span>Rain ${hour.chance_of_rain}%</span>
-            <span>Wind ${Math.round(hour.wind_kph)} km/h</span>
-            <span>Humidity ${hour.humidity}%</span>
+          <div class="hour-metrics">
+            <span class="hour-metric"><strong>${formatTemperature(
+              hour.temp_c
+            )}</strong></span>
+            <span class="hour-metric">Rain ${hour.chance_of_rain}%</span>
+            <span class="hour-metric">Wind ${Math.round(hour.wind_kph)} km/h</span>
+            <span class="hour-metric">Humidity ${hour.humidity}%</span>
           </div>
         </article>
       `
