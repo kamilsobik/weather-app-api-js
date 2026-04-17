@@ -559,15 +559,41 @@ p {
   }
 
   .hour-row,
-  .hour-main,
-  .hour-metrics,
   .day-card-top {
     flex-direction: column;
     align-items: flex-start;
   }
 
+  .hour-row {
+    gap: 0.85rem;
+  }
+
+  .hour-main {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hour-metrics {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem 0.85rem;
+    justify-content: initial;
+  }
+
+  .hour-condition {
+    min-width: 0;
+  }
+
   .hour-time {
     min-width: 0;
+  }
+
+  .hour-metric {
+    white-space: normal;
   }
 
   .day-card-grid {
